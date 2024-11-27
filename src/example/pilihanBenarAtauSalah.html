@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Soal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Timer countdown
+    let countdownTime = 3600; // 1 hour in seconds
+    const totalQuestions = 100; // Total number of questions
+
+    function startCountdown() {
+      const timerElement = document.getElementById('timer');
+      const interval = setInterval(() => {
+        if (countdownTime <= 0) {
+          clearInterval(interval);
+          alert("Waktu habis!");
+          return;
+        }
+        const minutes = Math.floor(countdownTime / 60);
+        const seconds = countdownTime % 60;
+        timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        countdownTime--;
+      }, 1000);
+    }
+
+    function populateQuestionList() {
+      const dropdownMenu = document.getElementById('dropdown-menu');
+      for (let i = 1; i <= totalQuestions; i++) {
+        const questionItem = document.createElement('div');
+        questionItem.className =
+          'flex justify-center items-center bg-blue-600 text-white w-10 h-10 rounded-full shadow-md hover:bg-blue-700 cursor-pointer';
+        questionItem.textContent = i;
+        questionItem.onclick = () => alert(`Navigasi ke soal ${i}`);
+        dropdownMenu.appendChild(questionItem);
+      }
+    }
+
+    function adjustDropdownWidth() {
+      const soalElement = document.getElementById('soal');
+      const dropdownContainer = document.getElementById('dropdown-container');
+      const soalWidth = soalElement.offsetWidth;
+      dropdownContainer.style.width = `${soalWidth}px`;
+    }
+
+    function toggleDropdown() {
+      const dropdown = document.getElementById('dropdown-container');
+      dropdown.classList.toggle('hidden');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      startCountdown();
+      populateQuestionList();
+      adjustDropdownWidth();
+      window.addEventListener('resize', adjustDropdownWidth); // Adjust width on window resize
+    });
+  </script>
+</head>
+<body class="bg-blue-100 min-h-screen flex flex-col justify-center items-center p-4">
+
+  <!-- Container Soal -->
+  <div class="bg-white shadow-md rounded-lg w-full md:w-3/4 lg:w-1/2 p-6" id="soal">
+    <!-- Hitung Mundur Waktu dan Dropdown -->
+    <div class="flex justify-between items-center mb-4">
+      <div class="relative">
+        <button
+          onclick="toggleDropdown()"
+          class="bg-blue-600 text-white px-2 py-2 rounded-md shadow-md hover:bg-blue-700"
+        >
+          Daftar Soal
+        </button>
+        <div
+          id="dropdown-container"
+          class="absolute mt-2 p-4 bg-white border border-gray-200 rounded-md shadow-lg hidden" style="top: 100%; position: absolute; width: 700px; left: -30px;"
+        >
+          <div
+            id="dropdown-menu"
+            class="grid grid-cols-10 gap-2" 
+            style="max-height: 300px; overflow-y: auto;"
+          >
+            <!-- Dynamic List -->
+          </div>
+        </div>
+      </div>
+      <div class="text-lg font-bold text-blue-700">
+        Sisa Waktu: <span id="timer" class="text-red-500">00:00</span>
+      </div>
+    </div>
+
+    <!-- div pembungkus pembungkus Soal  -->
+    
+        
+    <div class="bg-white shadow-md rounded-lg w-full p-6">
+        <!-- Soal -->
+        <div class="mb-3 flex items-center">
+          <p class="text-[20px] m-1 font-semibold">1.</p>
+          <p class="text-gray-700 text-[20px] m-2">
+            Pernyataan: Bumi berbentuk bulat.
+          </p>
+        </div>
+
+        <!-- Jawaban: Benar atau Salah -->
+        <div class="space-y-3 m-2">
+          <label class="flex items-center">
+            <input type="radio" name="jawaban" value="Benar" class="mr-2">
+            <span>Benar</span>
+          </label>
+          <label class="flex items-center">
+            <input type="radio" name="jawaban" value="Salah" class="mr-2">
+            <span>Salah</span>
+          </label>
+        </div>
+    </div>
+
+        <!-- Penutup soal -->
+
+        <!-- Tombol Navigasi -->
+        <div class="mt-6 flex justify-between">
+          <button
+            onclick="goToPreviousQuestion()"
+            class="bg-gray-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-700"
+          >
+            Sebelumnya
+          </button>
+          <button
+            onclick="refreshPage()"
+            class="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600"
+          >
+            Refresh
+          </button>
+          <button
+            onclick="goToNextQuestion()"
+            class="bg-green-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-green-700"
+          >
+            Selanjutnya
+          </button>
+        </div>
+    </div>
+  
+  <script>
+  function goToPreviousQuestion() {
+    console.log("Navigasi ke soal sebelumnya");
+  }
+
+  function refreshPage() {
+    location.reload();
+  }
+
+  function goToNextQuestion() {
+    const selectedAnswer = document.querySelector('input[name="jawaban"]:checked');
+    if (selectedAnswer) {
+      alert(`Jawaban Anda: ${selectedAnswer.value}`);
+    } else {
+      alert("Silakan pilih jawaban sebelum melanjutkan!");
+    }
+  }
+</script>
+
+</body>
+</html>

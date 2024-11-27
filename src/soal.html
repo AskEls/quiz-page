@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Soal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="./js/loader.js" defer></script>
+  <script src="./js/main.js"></script>
+  
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body class="bg-blue-100 min-h-screen flex flex-col justify-center items-center p-4 select-none">
+
+  <!-- Container Soal -->
+  <div class="bg-white shadow-md rounded-lg w-full md:w-3/4 lg:w-1/2 p-6" id="soal">
+
+    <!-- Hitung Mundur Waktu dan Dropdown -->
+<div class="flex justify-between items-center mb-2 ">
+  <div class="relative w-full sm:w-auto">
+    <button onclick="toggleDropdown()" class="bg-blue-400 text-white px-2 py-2 rounded-b-lg shadow-md hover:bg-blue-300  sm:w-auto"    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+        <path d="M5.566 4.657A4.505 4.505 0 0 1 6.75 4.5h10.5c.41 0 .806.055 1.183.157A3 3 0 0 0 15.75 3h-7.5a3 3 0 0 0-2.684 1.657ZM2.25 12a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3v-6ZM5.25 7.5c-.41 0-.806.055-1.184.157A3 3 0 0 1 6.75 6h10.5a3 3 0 0 1 2.683 1.657A4.505 4.505 0 0 0 18.75 7.5H5.25Z" />
+      </svg>
+
+
+    </button>
+    <div
+      id="dropdown-container"
+      class="absolute mt-2 p-4 bg-white border border-gray-200 rounded-md shadow-lg hidden z-10 w-full sm:w-auto"
+      style="top: 100%; position: absolute; width: 600px;"
+    >
+      <div
+        id="dropdown-menu"
+        class="grid grid-cols-10 gap-2 max-h-60 overflow-y-auto"
+      >
+        </div>
+    </div>
+  </div>
+
+  <div class="text-lg font-bold text-blue-400 flex items-center space-x-2">
+    <span id="timer" class="text-red-500 text-sm">00:00</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+      <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+    </svg>
+  </div>
+
+</div>
+
+  <!-- Container Soal -->
+  <div class="bg-white shadow-md rounded-lg w-full p-3" id="soal-container">
+    <!-- Soal akan dimuat di sini -->
+  </div>
+  
+
+  <!-- Tombol Navigasi -->
+<div class="mt-6 flex flex-col sm:flex-row justify-between w-full">
+<button
+  onclick="goToPreviousQuestion()"
+  class="bg-gray-600 text-white px-2 py-2 rounded-s-xl shadow-md hover:bg-gray-700 w-full sm:w-auto mb-2 sm:mb-0 text-center inline-flex items-center">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+    <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" clip-rule="evenodd" />
+    </svg>
+
+  <p class="text-xs">back</p>
+</button>
+
+
+<!-- Reload -->
+<button
+  onclick="refreshPage()"
+  class="bg-blue-500 text-white px-5 py-2 rounded shadow-md hover:bg-blue-600 w-full sm:w-auto mb-0 sm:mb-0 flex items-center"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    class="size-6" >
+    <path
+      fill-rule="evenodd"
+      d="M4.755 10.059a7.5 7.5 0 0 1 12.548-3.364l1.903 1.903h-3.183a.75.75 0 1 0 0 1.5h4.992a.75.75 0 0 0 .75-.75V4.356a.75.75 0 0 0-1.5 0v3.18l-1.9-1.9A9 9 0 0 0 3.306 9.67a.75.75 0 1 0 1.45.388Zm15.408 3.352a.75.75 0 0 0-.919.53 7.5 7.5 0 0 1-12.548 3.364l-1.902-1.903h3.183a.75.75 0 0 0 0-1.5H2.984a.75.75 0 0 0-.75.75v4.992a.75.75 0 0 0 1.5 0v-3.18l1.9 1.9a9 9 0 0 0 15.059-4.035.75.75 0 0 0-.53-.918Z"
+      clip-rule="evenodd"
+    />
+  </svg></button>
+
+
+  <button
+    onclick="goToNextQuestion()"
+    class="bg-green-600 text-white px-2 py-2 rounded-r-lg shadow-md hover:bg-green-700 w-full sm:w-auto text-center inline-flex items-center">
+    <p class="text-xs">
+    next
+    </p>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+      <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z" clip-rule="evenodd" />
+    </svg>
+
+    
+  </button>
+</div>
+
+
+</body>
+</html>

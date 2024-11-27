@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selamat Mengerjakan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    let ujianStatus = "not_started";
+
+    function handleStart() {
+      if (ujianStatus === "in_progress") {
+        window.location.href = "/pilihanGanda.html";
+      } else if (ujianStatus === "not_started") {
+        const deviceSelection = document.getElementById("device-selection");
+        deviceSelection.classList.remove("hidden");
+      }
+    }
+
+    function selectDevice(device) {
+      console.log("Siswa memilih perangkat:", device);
+      ujianStatus = "in_progress";
+      window.location.href = "./soal.html";
+    }
+
+    function renderUI() {
+      const startButton = document.getElementById("start-button");
+      const resultButton = document.getElementById("result-button");
+
+      if (ujianStatus === "finished") {
+        startButton.classList.add("hidden");
+        resultButton.classList.remove("hidden");
+      } else {
+        startButton.classList.remove("hidden");
+        resultButton.classList.add("hidden");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", renderUI);
+  </script>
+</head>
+<body class="bg-blue-100">
+
+  <div class="p-4 md:p-6">
+    <!-- Button Back -->
+    <div class="mb-4">
+      <button class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-10 gap-4 min-h-screen">
+      <!-- Profil -->
+      <div class="col-span-3 order-1 md:order-2 flex justify-center items-start">
+        <div class="bg-blue-300 p-4 md:p-6 rounded-lg shadow-lg w-full md:w-3/4 text-center">
+          <div class="flex justify-center mb-4">
+            <div class="w-20 h-20 md:w-24 md:h-24 bg-blue-400 rounded-full"></div>
+          </div>
+          <div class="space-y-3 md:space-y-4">
+            <div class="bg-blue-600 text-white py-2 px-3 md:px-4 rounded-md font-bold text-sm md:text-base">
+              Mr. Rusdi Ambalabu
+            </div>
+            <div class="bg-blue-600 text-white py-2 px-3 md:px-4 rounded-md font-bold text-sm md:text-base">
+              11112509
+            </div>
+            <div class="bg-blue-600 text-white py-2 px-3 md:px-4 rounded-md font-bold text-sm md:text-base">
+              Kelas 7a
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keterangan Ujian -->
+      <div class="col-span-7 order-2 md:order-1 flex justify-center items-start">
+        <div class="bg-blue-300 p-4 md:p-6 rounded-lg shadow-md w-full md:w-4/5">
+          <h2 class="text-lg md:text-2xl font-bold text-white mb-4 md:mb-6 text-center">Ujian Tengah Semester</h2>
+          <div class="space-y-4">
+            <div class="flex justify-between bg-white py-2 px-3 md:px-4 rounded-lg shadow">
+              <span class="font-semibold text-sm md:text-base">Mata Pelajaran</span>
+              <span class="text-sm md:text-base">Matematika</span>
+            </div>
+            <div class="flex justify-between bg-white py-2 px-3 md:px-4 rounded-lg shadow">
+              <span class="font-semibold text-sm md:text-base">Tanggal Mulai</span>
+              <span class="text-sm md:text-base">27 April 2045</span>
+            </div>
+            <div class="flex justify-between bg-white py-2 px-3 md:px-4 rounded-lg shadow">
+              <span class="font-semibold text-sm md:text-base">Durasi Mengerjakan</span>
+              <span class="text-sm md:text-base">60 Menit</span>
+            </div>
+            <div class="flex justify-between bg-white py-2 px-3 md:px-4 rounded-lg shadow">
+              <span class="font-semibold text-sm md:text-base">Jumlah Soal</span>
+              <span class="text-sm md:text-base">110</span>
+            </div>
+            <div class="flex justify-between bg-white py-2 px-3 md:px-4 rounded-lg shadow">
+              <span class="font-semibold text-sm md:text-base">Status</span>
+              <span class="text-red-500 text-sm md:text-base">Not Done</span>
+            </div>
+          </div>
+
+          <!-- Button Start -->
+          <div class="mt-4 md:mt-6 text-center">
+            <button
+              id="start-button"
+              onclick="handleStart()"
+              class="bg-blue-600 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-700"
+            >
+              Start
+            </button>
+            <button
+              id="result-button"
+              class="bg-green-600 text-white px-6 py-2 rounded-md shadow-md hover:bg-green-700 hidden"
+              onclick="alert('Hasil ujian Anda: 85')"
+            >
+              View Result
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Device Selection Modal -->
+  <div id="device-selection" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+      <h3 class="text-lg font-semibold mb-4">Pilih Perangkat</h3>
+      <button
+        onclick="selectDevice('Mobile')"
+        class="bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 mr-2"
+      >
+        Mobile
+      </button>
+      <button
+        onclick="selectDevice('Desktop')"
+        class="bg-blue-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700"
+      >
+        Desktop
+      </button>
+    </div>
+  </div>
+
+</body>
+</html>

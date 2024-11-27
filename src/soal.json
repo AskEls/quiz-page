@@ -1,0 +1,55 @@
+[
+  {
+    "id": 1,
+    "type": "pilihanganda",
+    "pertanyaan": "Apa ibu kota Indonesia?",
+    "pilihan": ["Jakarta", "Bandung", "Surabaya"]
+  },
+  {
+    "id": 2,
+    "type": "benaratausalah",
+    "pertanyaan": "1 + 1 = 10",
+    "pilihan": ["Benar", "Salah"]
+  },
+  {
+    "id": 3,
+    "type": "benaratausalah",
+    "pertanyaan": "Sapi merupahakan hewan carnivora",
+    "pilihan": ["Benar", "Salah"]
+  },
+  {
+    "id": 4,
+    "type": "menjodohkan",
+    "pertanyaan": "Mana pilihan di bawah ini yang tepat ?:",
+    "soal": ["Bumi", "Matahari", "Bulan"],
+    "jawaban": ["Planet", "Bintang", "Satelit"]
+  },
+  {
+    "id": 5,
+    "type": "pilihanganda",
+    "pertanyaan": "Apa ibu kota Indonesia?",
+    "pilihan": ["Jakarta", "Bandung", "Surabaya"]
+  },
+  {
+    "id": 6,
+    "type": "menjodohkan",
+    "pertanyaan": "Mana pilihan di bawah ini yang tepat ?:",
+    "soal": [
+        "Jenis kata-kata yang memiliki kesamaan ejaan dan bunyi, namun berbeda arti",
+        "Rajin pangkal",
+        "Sinonim kata acuh",
+        "Seseorang yang sulit untuk dinasehati disebut dengan istilah",
+        "Antonim kata salah",
+        "Salah satu tujuan dari pembuatan teks negosiasi adalah",
+        "Metode pidato dengan cara hafalan dikenal dengan istilah"
+    ],
+    "jawaban": [
+        "Anak berkepala batu",
+        "Peduli",
+        "Benar",
+        "Pandai",
+        "Mengurangi atau menghilangkan perbedaan dan pertentangan antar pihak",
+        "homonim",
+        "Metode memoriter"
+    ]
+}]

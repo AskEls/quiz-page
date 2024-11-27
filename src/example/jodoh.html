@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Soal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .radio-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-blue-100 min-h-screen flex flex-col justify-center items-center p-4 relative select-none">
+
+  <!-- Container Soal -->
+  <div class="bg-white shadow-md rounded-lg w-full md:w-3/4 lg:w-1/2 p-6" id="">
+    <!-- Judul Soal -->
+    <div class="mb-3 flex items-center">
+      <p class="text-[20px] m-1 font-semibold">2.</p>
+      <p class="text-gray-700 text-[20px] m-2">
+        Cocokkan pasangan berikut:
+      </p>
+    </div>
+
+    <div class="kolom-pilihan grid grid-cols-2 gap-20" id="menjodohkan">
+      <!-- Kolom Soal -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-end">
+          <label for="soal-1" class="text-gray-700 font-medium">Bumi</label>
+          <input type="radio" class="m-2" name="soal" value="1" id="">
+        </div>
+        <div class="flex items-center justify-end">
+          <label for="soal-2" class="text-gray-700 font-medium">Matahari</label>
+          <input type="radio" class="m-2" name="soal" value="2" id="">
+        </div>
+        <div class="flex items-center justify-end">
+          <label for="soal-3" class="text-gray-700 font-medium">Bulan</label>
+          <input type="radio" class="m-2" name="soal" value="3" id="">
+        </div>
+      </div>
+
+      <!-- Kolom Jawaban -->
+      <div class="space-y-4">
+        <div class="radio-container">
+          <input type="radio" name="jawaban" class="m-2" value="1" id="jawaban-1">
+          <label for="jawaban-1" class="text-gray-700 font-medium">Planet</label>
+        </div>
+        <div class="radio-container">
+          <input type="radio" name="jawaban" class="m-2" value="2" id="jawaban-2">
+          <label for="jawaban-2" class="text-gray-700 font-medium">Bintang</label>
+        </div>
+        <div class="radio-container">
+          <input type="radio" name="jawaban" class="m-2" value="3" id="jawaban-3">
+          <label for="jawaban-3" class="text-gray-700 font-medium">Satelit</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canvas for Drawing Lines -->
+  <canvas id="canvas"></canvas>
+
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const soal = document.getElementById('menjodohkan');
+  let selectedSoal = null;
+
+  function resizeCanvas() {
+    const soalRect = soal.getBoundingClientRect();
+    canvas.style.top = `${soalRect.top + window.scrollY}px`;
+    canvas.style.left = `${soalRect.left + window.scrollX}px`;
+    canvas.width = soal.offsetWidth;
+    canvas.height = soal.offsetHeight;
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('scroll', resizeCanvas);
+
+  document.querySelectorAll('input[name="soal"]').forEach((radio) => {
+    radio.addEventListener('change', (e) => {
+      selectedSoal = e.target;
+    });
+  });
+
+  document.querySelectorAll('input[name="jawaban"]').forEach((radio) => {
+    radio.addEventListener('change', (e) => {
+      if (selectedSoal) {
+        const soalRect = soal.getBoundingClientRect();
+        const soalOptionRect = selectedSoal.getBoundingClientRect();
+        const jawabanOptionRect = e.target.getBoundingClientRect();
+
+        const soalCenter = {
+          x: soalOptionRect.left + soalOptionRect.width / 2 - soalRect.left,
+          y: soalOptionRect.top + soalOptionRect.height / 2 - soalRect.top,
+        };
+
+        const jawabanCenter = {
+          x: jawabanOptionRect.left + jawabanOptionRect.width / 2 - soalRect.left,
+          y: jawabanOptionRect.top + jawabanOptionRect.height / 2 - soalRect.top,
+        };
+
+        drawLine(soalCenter, jawabanCenter);
+        logPair(selectedSoal.value, e.target.value);
+        selectedSoal = null;
+      }
+    });
+  });
+
+  function drawLine(start, end) {
+    ctx.beginPath();
+    ctx.moveTo(start.x, start.y);
+    ctx.lineTo(end.x, end.y);
+    ctx.strokeStyle = 'blue';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.closePath();
+  }
+
+  function logPair(soalValue, jawabanValue) {
+    console.log(`Soal ${soalValue} dijodohkan dengan Jawaban ${jawabanValue}`);
+  }
+</script>
+
+</body>
+</html>
